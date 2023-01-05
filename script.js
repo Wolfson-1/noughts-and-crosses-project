@@ -28,53 +28,99 @@
    
     
         //Factory function to create players
-    const createPlayer = (name,counter) => {
+    const createPlayer = (counter) => {
         //Variable for name
-            let playerName = name;
-            let playerCounter = counter; 
-                    
-            //methond to display name
-            const getName = () => {
-            console.log(playerName);
-            };
+            let playerCounter = counter;
 
             const getCounter = () => {
                 console.log(playerCounter);
             }
 
-            return {getName, getCounter};
+            return {getCounter};
             };
 
             //query selectors for input values of players
-            const player1Name = document.querySelector('#player1Name');
-            const player2Name = document.querySelector('#player2Name');
-            const createPlayer1 = document.querySelector('.submitPlayer1');
-            const createPlayer2 = document.querySelector('.submitPlayer2');
+            const player1X= document.querySelector('.player1X');
+            const player10 = document.querySelector('.player10');
+            const player2X= document.querySelector('.player2X');
+            const player20 = document.querySelector('.player20');
+
+            //query selectors for players assigned token value
+            let playerOneToken = document.querySelector('.playerOneToken');
+            let playerTwoToken = document.querySelector('.playerTwoToken');
+
             let player1 = '';
             let player2 = '';
 
-            //Create player1 event listener
-            createPlayer1.addEventListener('click', (e) => {
+            //Player Select Token event listeners 
+            player1X.addEventListener('click', (e) => {
                 //prevents form submit
                 e.preventDefault()
-                nameInput = player1Name.value;
+                if (player1 != "") {
+                    alert('Tokens already selected!');
+                } else {
 
-                player1 = createPlayer(nameInput, 'x');
+                player1 = createPlayer('X','One');
                 console.log(player1);
-                player1Name.value = "";
-            })
-            
+                playerOneToken.innerText = 'X'
 
-            //Create player2 event listener
-            createPlayer2.addEventListener('click', (e) => {
+                player2 = createPlayer('0','Two');
+                console.log(player2);
+                playerTwoToken.innerText = '0'
+            }});
+
+            player10.addEventListener('click', (e) => {
                 //prevents form submit
                 e.preventDefault()
-                nameInput = player2Name.value;
+                if (player1 != "") {
+                    alert('Tokens already selected!');
+                } else {
 
-                player2 = createPlayer(nameInput, '0');
-                player2Name.value = "";
-            })
+                player1 = createPlayer('0');
+                console.log(player1);
+                playerOneToken.innerText = '0'
 
+                player2 = createPlayer('X');
+                console.log(player2);
+                playerTwoToken.innerText = 'X'
+
+            }});
+
+            player2X.addEventListener('click', (e) => {
+                //prevents form submit
+                e.preventDefault()
+                if (player2 != "") {
+                    alert('Tokens already selected!');
+                } else {
+
+                player1 = createPlayer('0');
+                console.log(player1);
+                playerOneToken.innerText = '0'
+
+                player2 = createPlayer('X');
+                console.log(player2);
+                playerTwoToken.innerText = 'X'
+
+            }});
+
+            player20.addEventListener('click', (e) => {
+                //prevents form submit
+                e.preventDefault()
+                if (player2 != "") {
+                    alert('Tokens already selected!');
+                } else {
+
+                player1 = createPlayer('X');
+                console.log(player1);
+                playerOneToken.innerText = 'X'
+
+                player2 = createPlayer('0');
+                console.log(player2);
+                playerTwoToken.innerText = '0'
+
+            }});
+
+            /*
 
 //Allow players to play game & take turns in filling in gameboard
 //------------------------
@@ -95,3 +141,5 @@
 
 //Declare winner or draw based off ruleset for noughts & crosses
 //------------------------
+
+*/
