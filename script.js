@@ -1,4 +1,4 @@
-//Create gameboard
+//Create 
 //------------------------
     
     const createGameBoard = (() => {
@@ -120,20 +120,30 @@
 
             }});
 
-            /*
+
 
 //Allow players to play game & take turns in filling in gameboard
 //------------------------
 
     //Allow players to manipulate dom in grid on click
             //query selector for divs in grid
-            const gameBoardDiv = document.querySelector('.gameBoardDiv');
-            const gameBoardTiles = gameBoardDiv.querySelectorAll('button');
 
+            const gameplayFunc = (() => {
+           
+            //query selectors to manupulate tile text
+            for (let i = 0; i < 9; i++) {
+            const gameTiles = [];
+            gameTiles[i] = document.querySelector(`.square${i}`); 
+                
             //event listener to add symbol to each game tile clicked
-            gameBoardTiles.addEventListener('click', (e) => {
-                e.innerText = 'Sucess!';
+            gameTiles[i].addEventListener('click', (e) => {
+                gameTiles[i].innerText = 'sucess!';
+                console.log('sucess!');
             });
+
+                
+            };
+        })();
 
     //setup to take turns in assigning tokens to grid
     //
@@ -141,5 +151,3 @@
 
 //Declare winner or draw based off ruleset for noughts & crosses
 //------------------------
-
-*/
