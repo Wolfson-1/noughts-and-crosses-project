@@ -4,7 +4,7 @@
     const createGameBoard = (() => {
     
     //creating gameboard values
-    let gameValues = ['X','0','X','0','X','0','X','0','X'];
+    let gameValues = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
 
     //loop through creating dom elements for grid
         for(i = 0; i < 9; i++) {
@@ -129,24 +129,40 @@
             //query selector for divs in grid
 
             const gameplayFunc = (() => {
+            // Which players turn is it? (CHANGE THIS TO BE DYNAMIC FOR PLAYER ONES CHOICE)
+            let turn = 'X';
+            
+            //Selector for Turn div
+            const playerTurnDisplay = document.querySelector('.playerTurnDisplay');
+            playerTurnDisplay.innerText = `It is ${turn}'s go`;
+            
+
+            //Change turn function
+            const whoseTurn = () => {
+                    if (turn == 'X') {
+                            turn = '0';
+                    } else if (turn == '0') {
+                            turn = 'X';
+                    };
+            };
            
-            //query selectors to manupulate tile text
+            //Event listener to add symbol to each game tile clicked based on turns
             for (let i = 0; i < 9; i++) {
             const gameTiles = [];
             gameTiles[i] = document.querySelector(`.square${i}`); 
-                
-            //event listener to add symbol to each game tile clicked
+            
             gameTiles[i].addEventListener('click', (e) => {
-                gameTiles[i].innerText = 'sucess!';
-                console.log('sucess!');
-            });
+                if (gameTiles[i].innerText != '') {
+                    alert('Square already taken!');
+                } else {
+                console.log(turn);
+                gameTiles[i].innerText = turn;
+                whoseTurn();
+                playerTurnDisplay.innerText = `It is ${turn}'s go`;
+            }});
 
-                
             };
         })();
-
-    //setup to take turns in assigning tokens to grid
-    //
 
 
 //Declare winner or draw based off ruleset for noughts & crosses
