@@ -157,6 +157,7 @@
                 } else {
                 console.log(turn);
                 gameTiles[i].innerText = turn;
+                createGameBoard.gameValues[i] = turn;
                 whoseTurn();
                 playerTurnDisplay.innerText = `It is ${turn}'s go`;
             }});
