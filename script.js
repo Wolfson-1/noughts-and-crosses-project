@@ -23,7 +23,18 @@
     })();
 
 
-//Create players
+
+//Allow players to play game & take turns in filling in gameboard
+//------------------------
+
+
+
+    //Allow players to manipulate dom in grid on click
+            //query selector for divs in grid
+
+            const gameplayFunc = (() => {
+
+            //Create players
 //---------------------
    
     
@@ -67,6 +78,8 @@
                 player2 = createPlayer('0','Two');
                 console.log(player2);
                 playerTwoToken.innerText = '0'
+
+                setFirstTurn();
             }});
 
             player10.addEventListener('click', (e) => {
@@ -83,6 +96,8 @@
                 player2 = createPlayer('X');
                 console.log(player2);
                 playerTwoToken.innerText = 'X'
+
+                setFirstTurn();
 
             }});
 
@@ -101,6 +116,8 @@
                 console.log(player2);
                 playerTwoToken.innerText = 'X'
 
+                setFirstTurn();
+
             }});
 
             player20.addEventListener('click', (e) => {
@@ -117,27 +134,27 @@
                 player2 = createPlayer('0');
                 console.log(player2);
                 playerTwoToken.innerText = '0'
+               
+                setFirstTurn();
 
             }});
 
+            // Which players turn is it? ----------
+            let turn = '';
 
+            const setFirstTurn = () => {
+                    turn = playerOneToken.innerText 
 
-//Allow players to play game & take turns in filling in gameboard
-//------------------------
-
-    //Allow players to manipulate dom in grid on click
-            //query selector for divs in grid
-
-            const gameplayFunc = (() => {
-            // Which players turn is it? (CHANGE THIS TO BE DYNAMIC FOR PLAYER ONES CHOICE)
-            let turn = 'X';
+                    //Selector for Turn div
+                    const playerTurnDisplay = document.querySelector('.playerTurnDisplay');
+                    playerTurnDisplay.innerText = `It is ${turn}'s turn`;
+            };
             
-            //Selector for Turn div
+            
             const playerTurnDisplay = document.querySelector('.playerTurnDisplay');
-            playerTurnDisplay.innerText = `It is ${turn}'s go`;
-            
+            playerTurnDisplay.innerText = `It is ${turn}'s turn`;
 
-            //Change turn function
+            //Change turn function ----------------------------------
             const whoseTurn = () => {
                     if (turn == 'X') {
                             turn = '0';
@@ -145,14 +162,104 @@
                             turn = 'X';
                     };
             };
+
+            //Check for win funciton -------------------------------------
+            const winChecker = () => {
+            let xWins = []
+            let oWins = []
+            
+            //Creates clean array to check for win of X counters
+            for(let i = 0; i<9; i++) {
+                if (createGameBoard.gameValues[i] == "X") {
+                    xWins.push('X');
+                } else {
+                    xWins.push('-')
+                }
+            };
+
+            //Creates clean array to check for win of 0 counters
+            for(let i = 0; i < 9; i++) {
+                if (createGameBoard.gameValues[i] == '0') {
+                    oWins.push('0');
+                } else {
+                    oWins.push('-')
+                }
+            };
+
+            console.log(xWins)
+            console.log(oWins)
+            
+            let xWinsToString = xWins.toString();
+            let oWinsToString = oWins.toString();
+            console.log(xWinsToString);
+            console.log(oWinsToString);
+
+
+            //Check for if 'X' wins
+            switch (xWinsToString) {
+                case 'X,X,X,-,-,-,-,-,-':
+                    alert('X wins!');
+                    break;
+                case '-,-,-,X,X,X,-,-,-':
+                    alert('X wins!');
+                    break;
+                case '-,-,-,-,-,-,X,X,X':
+                    alert('X wins!');
+                    break;
+                case 'X,-,-,X,-,-,X,-,-':
+                    alert('X wins!');
+                    break;
+                case '-,X,-,-,X,-,-,X,-':
+                    alert('X wins!');  
+                    break;
+                case '-,-,X,-,-,X,-,-,X':
+                    alert('X wins!')
+                    break;
+                case 'X,-,-,-,X,-,-,-,X':
+                    alert('X wins!');
+                    break;
+                case '-,-,X,-,X,-,X,-,-':
+                    alert('X wins!');
+                    break;
+            };
+
+            switch (oWinsToString) {
+                case '0,0,0,-,-,-,-,-,-':
+                    alert('0 wins!');
+                    break;
+                case '-,-,-,0,0,0,-,-,-':
+                    alert('0 wins!');
+                    break;
+                case '-,-,-,-,-,-,0,0,0':
+                    alert('0 wins!');
+                    break;
+                case '0,-,-,0,-,-,0,-,-':
+                    alert('0 wins!');
+                    break;
+                case '-,0,-,-,0,-,-,0,-':
+                    alert('0 wins!');  
+                    break;
+                case '-,-,0,-,-,0,-,-,0':
+                    alert('0 wins!')
+                    break;
+                case '0,-,-,-,0,-,-,-,0':
+                    alert('0 wins!');
+                    break;
+                case '-,-,0,-,0,-,0,-,-':
+                    alert('0 wins!');
+                    break;
+            };
+            };
            
-            //Event listener to add symbol to each game tile clicked based on turns
+            //Event listener to add symbol to each game tile clicked based on turns ------------------------
             for (let i = 0; i < 9; i++) {
             const gameTiles = [];
             gameTiles[i] = document.querySelector(`.square${i}`); 
             
             gameTiles[i].addEventListener('click', (e) => {
-                if (gameTiles[i].innerText != '') {
+                if (player1 == '') {
+                    alert(`Select counter's first!`);
+                } else if (gameTiles[i].innerText != '') {
                     alert('Square already taken!');
                 } else {
                 console.log(turn);
@@ -160,8 +267,8 @@
                 createGameBoard.gameValues[i] = turn;
                 whoseTurn();
                 playerTurnDisplay.innerText = `It is ${turn}'s go`;
+                winChecker()
             }});
-
             };
         })();
 
