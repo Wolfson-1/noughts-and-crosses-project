@@ -141,6 +141,8 @@
 
             // Which players turn is it? ----------
             let turn = '';
+            const playerTurnDisplay = document.querySelector('.playerTurnDisplay');
+            playerTurnDisplay.innerText = `It is ${turn}'s turn`;
 
             const setFirstTurn = () => {
                     turn = playerOneToken.innerText 
@@ -150,9 +152,6 @@
                     playerTurnDisplay.innerText = `It is ${turn}'s turn`;
             };
             
-            
-            const playerTurnDisplay = document.querySelector('.playerTurnDisplay');
-            playerTurnDisplay.innerText = `It is ${turn}'s turn`;
 
             //Change turn function ----------------------------------
             const whoseTurn = () => {
@@ -171,85 +170,76 @@
             //Creates clean array to check for win of X counters
             for(let i = 0; i<9; i++) {
                 if (createGameBoard.gameValues[i] == "X") {
-                    xWins.push('X');
-                } else {
-                    xWins.push('-')
+                    xWins.push(i);
                 }
             };
 
             //Creates clean array to check for win of 0 counters
             for(let i = 0; i < 9; i++) {
                 if (createGameBoard.gameValues[i] == '0') {
-                    oWins.push('0');
-                } else {
-                    oWins.push('-')
+                    oWins.push(i);
                 }
             };
 
             console.log(xWins)
             console.log(oWins)
+
+            const winningCasesArray = [
+                [0,1,2],
+                [3,4,5],
+                [6,7,8],
+                [0,3,6],
+                [1,4,7],
+                [2,5,8],
+                [0,4,8],
+                [2,4,6]
+            ];
             
-            let xWinsToString = xWins.toString();
-            let oWinsToString = oWins.toString();
-            console.log(xWinsToString);
-            console.log(oWinsToString);
+            //loop to check if X has won
+            for(let i = 0; i < winningCasesArray.length; i++ ) {
+                
+                let a = winningCasesArray[i][0]
+                let b = winningCasesArray[i][1]
+                let c = winningCasesArray[i][2]
+
+                let aTrue = xWins.some((item) => {
+                    return item == a})
+                let bTrue = xWins.some((item) => {
+                    return item == b})
+                let cTrue = xWins.some((item) => {
+                    return item == c})
+
+                if(aTrue == true && bTrue == true && cTrue == true) {
+                    alert('X Wins!!')
+                }
+
+            }
+
+            //loop to check if 0 has won
+            for(let i = 0; i < winningCasesArray.length; i++ ) {
+                
+                let a = winningCasesArray[i][0]
+                let b = winningCasesArray[i][1]
+                let c = winningCasesArray[i][2]
+
+                let aTrue = oWins.some((item) => {
+                    return item == a})
+                let bTrue = oWins.some((item) => {
+                    return item == b})
+                let cTrue = oWins.some((item) => {
+                    return item == c})
+
+                if(aTrue == true && bTrue == true && cTrue == true) {
+                    alert('0 Wins!!')
+                }
+
+            }
 
 
-            //Check for if 'X' wins
-            switch (xWinsToString) {
-                case 'X,X,X,-,-,-,-,-,-':
-                    alert('X wins!');
-                    break;
-                case '-,-,-,X,X,X,-,-,-':
-                    alert('X wins!');
-                    break;
-                case '-,-,-,-,-,-,X,X,X':
-                    alert('X wins!');
-                    break;
-                case 'X,-,-,X,-,-,X,-,-':
-                    alert('X wins!');
-                    break;
-                case '-,X,-,-,X,-,-,X,-':
-                    alert('X wins!');  
-                    break;
-                case '-,-,X,-,-,X,-,-,X':
-                    alert('X wins!')
-                    break;
-                case 'X,-,-,-,X,-,-,-,X':
-                    alert('X wins!');
-                    break;
-                case '-,-,X,-,X,-,X,-,-':
-                    alert('X wins!');
-                    break;
             };
 
-            switch (oWinsToString) {
-                case '0,0,0,-,-,-,-,-,-':
-                    alert('0 wins!');
-                    break;
-                case '-,-,-,0,0,0,-,-,-':
-                    alert('0 wins!');
-                    break;
-                case '-,-,-,-,-,-,0,0,0':
-                    alert('0 wins!');
-                    break;
-                case '0,-,-,0,-,-,0,-,-':
-                    alert('0 wins!');
-                    break;
-                case '-,0,-,-,0,-,-,0,-':
-                    alert('0 wins!');  
-                    break;
-                case '-,-,0,-,-,0,-,-,0':
-                    alert('0 wins!')
-                    break;
-                case '0,-,-,-,0,-,-,-,0':
-                    alert('0 wins!');
-                    break;
-                case '-,-,0,-,0,-,0,-,-':
-                    alert('0 wins!');
-                    break;
-            };
-            };
+
+
            
             //Event listener to add symbol to each game tile clicked based on turns ------------------------
             for (let i = 0; i < 9; i++) {
