@@ -39,8 +39,18 @@ body {
     justify-self: center;
 }
 
-.playerTurnDisplay {
+
+.underTableContainer {
     grid-column: 2 / 4;
+    grid-row: 5 / 6;
     justify-self: center;
+    display: flex;
+    flex-direction: column;
     margin-top: 40px;
+
+}
+
+.underTableContainer> {
+    gap: 10px;
+    flex: 1;
 }

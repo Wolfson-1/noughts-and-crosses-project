@@ -60,6 +60,9 @@
             let playerOneToken = document.querySelector('.playerOneToken');
             let playerTwoToken = document.querySelector('.playerTwoToken');
 
+            //Restart button query selector
+            const restartGameButton = document.querySelector('.restartButton');
+
             let player1 = '';
             let player2 = '';
 
@@ -138,6 +141,20 @@
                 setFirstTurn();
 
             }});
+
+            //Restart game button event listener to clear board
+            restartGameButton.addEventListener('click', () => {
+
+                player1 = '';
+                player2 = '';
+
+                for (let i = 0; i < 9; i++) {
+                const gameTiles = [];
+                gameTiles[i] = document.querySelector(`.square${i}`); 
+                gameTiles[i].innerText = '';
+                createGameBoard.gameValues[i] = '';
+                }
+            })
 
             // Which players turn is it? ----------
             let turn = '';
@@ -237,9 +254,6 @@
 
 
             };
-
-
-
            
             //Event listener to add symbol to each game tile clicked based on turns ------------------------
             for (let i = 0; i < 9; i++) {
@@ -252,7 +266,6 @@
                 } else if (gameTiles[i].innerText != '') {
                     alert('Square already taken!');
                 } else {
-                console.log(turn);
                 gameTiles[i].innerText = turn;
                 createGameBoard.gameValues[i] = turn;
                 whoseTurn();
@@ -260,6 +273,9 @@
                 winChecker()
             }});
             };
+
+            return {player1}
+
         })();
 
 
