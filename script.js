@@ -74,11 +74,11 @@
                     alert('Tokens already selected!');
                 } else {
 
-                player1 = createPlayer('X','One');
+                player1 = createPlayer('X');
                 console.log(player1);
                 playerOneToken.innerText = 'X'
 
-                player2 = createPlayer('0','Two');
+                player2 = createPlayer('0');
                 console.log(player2);
                 playerTwoToken.innerText = '0'
 
@@ -145,8 +145,12 @@
             //Restart game button event listener to clear board
             restartGameButton.addEventListener('click', () => {
 
-                player1 = '';
-                player2 = '';
+                 player1 = ''
+                 player2 = ''
+                 playerTurnDisplay.innerText = '';
+                 playerOneToken.innerText = '';
+                 playerTwoToken.innerText = '';
+
 
                 for (let i = 0; i < 9; i++) {
                 const gameTiles = [];
@@ -159,7 +163,7 @@
             // Which players turn is it? ----------
             let turn = '';
             const playerTurnDisplay = document.querySelector('.playerTurnDisplay');
-            playerTurnDisplay.innerText = `It is ${turn}'s turn`;
+            playerTurnDisplay.innerText = ``;
 
             const setFirstTurn = () => {
                     turn = playerOneToken.innerText 
